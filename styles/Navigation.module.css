@@ -1,0 +1,15 @@
+.navigation {
+  @apply w-full h-20 bg-gradient-to-br from-emerald-900 to-emerald-800;
+}
+
+.navList {
+  @apply w-full h-full flex justify-evenly items-center text-white;
+}
+
+.icon {
+  @apply flex justify-between items-center flex-col text-3xl;
+}
+
+.iconText {
+  @apply opacity-0 w-full h-0 text-xs uppercase font-bold transition-opacity duration-200 ease-in-out;
+}
