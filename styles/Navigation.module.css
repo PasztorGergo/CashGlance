@@ -1,5 +1,9 @@
 .navigation {
-  @apply w-full h-20 bg-gradient-to-br from-emerald-900 to-emerald-800;
+  @apply w-full flex items-center h-20 bg-gradient-to-br from-emerald-900 to-emerald-800 px-4 justify-between;
+}
+
+.brand {
+  @apply text-2xl font-bold uppercase cursor-pointer;
 }
 
 .navList {
@@ -7,9 +11,9 @@
 }
 
 .icon {
-  @apply flex justify-between items-center flex-col text-3xl;
+  @apply flex gap-0 items-center flex-col text-3xl hover:gap-1 transition-all duration-200 ease-in-out cursor-pointer;
 }
 
 .iconText {
-  @apply opacity-0 w-full h-0 text-xs uppercase font-bold transition-opacity duration-200 ease-in-out;
+  @apply opacity-0 w-full text-xs uppercase font-bold transition-opacity duration-200 ease-in-out;
 }
