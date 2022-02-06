@@ -10,8 +10,7 @@ body {
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  @apply decoration-0 bg-sky-400 bg-opacity-20 text-sky-700 rounded py-0.5 px-1 hover:bg-opacity-30 transition;
 }
 
 * {

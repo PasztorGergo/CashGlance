@@ -6,19 +6,37 @@ import {
   signOut,
   onAuthStateChanged,
   User,
+  createUserWithEmailAndPassword,
 } from "@firebase/auth";
-import { onSnapshot, collection } from "@firebase/firestore";
+import { onSnapshot, collection, setDoc, doc } from "@firebase/firestore";
 import { auth, db } from "../firebase";
 
-const FirebaseContext = React.createContext<Object>(() => {});
+const FirebaseContext = React.createContext<any>(null);
 
 export function useFirebase() {
   return useContext(FirebaseContext);
 }
 
 export function FirebaseProvider({ children }: any) {
+  const userCollection = collection(db, "Users");
+  const financialCollection = collection(db, "Finance");
   const [loading, setLoading] = useState<Boolean>(true);
   const [currentUser, setUser] = useState<User | null>();
+
+  function signUp(email: string, password: string) {
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredentials) => {
+        const respUser = userCredentials.user;
+        const { displayName, email, photoURL, uid } = respUser;
+        setDoc(doc(userCollection, userCredentials.user.uid), {
+          displayName: displayName ?? email?.split("@")[0],
+          email: email,
+          photoURL: photoURL,
+          uid: uid,
+        });
+      }
+    );
+  }
 
   function signin(email: string, password: string) {
     return signInWithEmailAndPassword(auth, email, password);
@@ -36,12 +54,15 @@ export function FirebaseProvider({ children }: any) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user);
-        onSnapshot(collection(db, "Finance"), (snapshot) => {});
+        onSnapshot(doc(userCollection, user.uid), (user) => {
+          setUser(user.data() as User);
+        });
+        onSnapshot(financialCollection, (snapshot) => {});
       }
     });
+    setLoading(false);
   }, []);
-  const value = { signInwithGoogle, signin, signout };
+  const value = { signInwithGoogle, signin, signout, signUp, currentUser };
   return (
     <FirebaseContext.Provider value={value}>
       {!loading && children}
