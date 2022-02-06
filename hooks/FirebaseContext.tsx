@@ -54,9 +54,8 @@ export function FirebaseProvider({ children }: any) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        onSnapshot(doc(userCollection, user.uid), (user) => {
-          setUser(user.data() as User);
-        });
+        setUser(user);
+        onSnapshot(doc(userCollection, user.uid), (user) => {});
         onSnapshot(financialCollection, (snapshot) => {});
       }
     });

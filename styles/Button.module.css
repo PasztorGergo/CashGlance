@@ -1,0 +1,11 @@
+.warning {
+  @apply bg-amber-400;
+}
+
+.success {
+  @apply bg-emerald-700;
+}
+
+.error {
+  @apply bg-red-700;
+}

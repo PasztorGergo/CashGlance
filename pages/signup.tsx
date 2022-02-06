@@ -23,10 +23,13 @@ export default function App() {
       .promise(signUp(data.email, data.password), {
         loading: "Creating new account...",
         success: "Successfully created your account",
-        error: "Something went wrong",
+        error: (error) => `Error, ${error}`,
       })
       .then(() => {
         router.push("/");
+      })
+      .catch((error) => {
+        console.error(error);
       })
       .finally(() => setLoading(false));
   }
