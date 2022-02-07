@@ -36,7 +36,7 @@ export default function account() {
         <h1 className={accStyles.displayName}>{currentUser?.displayName}</h1>
       </div>
       <div className={accStyles.accountBody}>
-        <Button disabled={loading} onClick={signOutHandler} theme="success">
+        <Button disabled={loading} onClick={signOutHandler} theme="error">
           Sign Out
         </Button>
       </div>

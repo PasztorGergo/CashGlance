@@ -21,7 +21,7 @@ export function FirebaseProvider({ children }: any) {
   const userCollection = collection(db, "Users");
   const financialCollection = collection(db, "Finance");
   const [loading, setLoading] = useState<Boolean>(true);
-  const [currentUser, setUser] = useState<User | null>();
+  const [currentUser, setUser] = useState<any>();
 
   function signUp(email: string, password: string) {
     return createUserWithEmailAndPassword(auth, email, password).then(
@@ -53,9 +53,11 @@ export function FirebaseProvider({ children }: any) {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      setUser(user);
       if (user) {
-        setUser(user);
-        onSnapshot(doc(userCollection, user.uid), (user) => {});
+        onSnapshot(doc(userCollection, user.uid), (user) => {
+          setUser(user.data());
+        });
         onSnapshot(financialCollection, (snapshot) => {});
       }
     });

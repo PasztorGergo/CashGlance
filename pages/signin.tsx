@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useFirebase } from "../hooks/FirebaseContext";
 import formStyles from "../styles/SignForm.module.css";
-import { UserCredential } from "@firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
