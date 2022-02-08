@@ -16,3 +16,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+select {
+  @apply focus:ring-emerald-300 focus:border-transparent transition-all;
+}

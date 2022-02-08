@@ -3,7 +3,7 @@ import useD3 from "../hooks/D3hook";
 import * as d3 from "d3";
 import { NumberValue } from "d3";
 
-export default function BarChart(data: any) {
+export default function BarChart({ data }: any) {
   const ref = useD3(
     (svg: any) => {
       const height = 500;
@@ -27,8 +27,14 @@ export default function BarChart(data: any) {
             .axisBottom(x)
             .tickValues(
               d3
-                .ticks(d3.min(x.domain()), d3.max(x.domain()), width / 40)
-                .filter((v) => x(v) !== undefined) as Iterable<string>
+                .ticks(
+                  d3.min(x.domain()) as unknown as number,
+                  d3.max(x.domain()) as unknown as number,
+                  width / 40
+                )
+                .filter(
+                  (v) => x(v as unknown as string) !== undefined
+                ) as Iterable<string>
             )
             .tickSizeOuter(0)
         );

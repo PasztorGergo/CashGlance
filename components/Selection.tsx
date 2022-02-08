@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 type Props = {
   children: Array<ReactElement>;
   getInterval: any;
+  className: string;
 };
 
-export default function Selection({ children, getInterval }: Props) {
+export default function Selection({ children, getInterval, className }: Props) {
   const { register, watch } = useForm();
   const intervalWatch = watch("interval");
 
@@ -15,7 +16,11 @@ export default function Selection({ children, getInterval }: Props) {
   }, [intervalWatch]);
 
   return (
-    <select {...register("interval")} defaultValue="Monthly">
+    <select
+      {...register("interval")}
+      defaultValue="Monthly"
+      className={className}
+    >
       {children}
     </select>
   );
