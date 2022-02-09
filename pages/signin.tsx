@@ -5,6 +5,7 @@ import { useFirebase } from "../hooks/FirebaseContext";
 import formStyles from "../styles/SignForm.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function App() {
   const router = useRouter();
@@ -38,6 +39,9 @@ export default function App() {
 
   return (
     <section className={formStyles.signIn}>
+      <Head>
+        <title>CashGlance | Sign In</title>
+      </Head>
       <h2 className={formStyles.title}>Sign In</h2>
       <form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
         <label className="flex flex-col">
@@ -65,7 +69,7 @@ export default function App() {
         </button>
       </form>
       <span>
-        Don't own an account, then <Link href="/signup">sign up</Link>.
+        Do not have an account, then <Link href="/signup">sign up</Link>.
       </span>
     </section>
   );

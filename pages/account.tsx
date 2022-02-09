@@ -4,6 +4,7 @@ import { useFirebase } from "../hooks/FirebaseContext";
 import accStyles from "../styles/Account.module.css";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
+import Head from "next/head";
 
 export default function account() {
   const router = useRouter();
@@ -27,6 +28,9 @@ export default function account() {
   }
   return (
     <section>
+      <Head>
+        <title>CashGlance | Account</title>
+      </Head>
       <div className={accStyles.accountHead}>
         <img
           src={currentUser?.photoUrl}

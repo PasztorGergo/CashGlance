@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useFirebase } from "../hooks/FirebaseContext";
 import formStyles from "../styles/SignForm.module.css";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function App() {
   const router = useRouter();
@@ -36,6 +37,9 @@ export default function App() {
 
   return (
     <section className={formStyles.signUp}>
+      <Head>
+        <title>CashGlance | Sign Up</title>
+      </Head>
       <h2 className={formStyles.title}>Sign In</h2>
       <form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
         <label className="flex flex-col">

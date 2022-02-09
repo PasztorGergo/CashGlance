@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import BarChart from "../components/Barchart";
 import Card from "../components/Card";
@@ -13,6 +14,9 @@ export default function Charts({}: Props) {
 
   return (
     <section className="flex sm:flex-row flex-col justify-evenly items-start py-6 px-4">
+      <Head>
+        <title>CashGlance | Charts</title>
+      </Head>
       <Card type="outlined">
         <h2 className={TitleStyle.title}>Expenses</h2>
         <div>
