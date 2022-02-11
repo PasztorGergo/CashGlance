@@ -18,7 +18,7 @@ export default function Selection({ children, getInterval, className }: Props) {
   return (
     <select
       {...register("interval")}
-      defaultValue="Monthly"
+      defaultValue="monthly"
       className={className}
     >
       {children}

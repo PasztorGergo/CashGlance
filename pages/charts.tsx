@@ -4,13 +4,20 @@ import BarChart from "../components/Barchart";
 import Card from "../components/Card";
 import Selection from "../components/Selection";
 import TitleStyle from "../styles/SignForm.module.css";
+import { useFirebase } from "../hooks/FirebaseContext";
+import { useRouter } from "next/router";
 
 type Props = {};
 
 export default function Charts({}: Props) {
-  const [ExpenseInter, getExpense] = useState<string>("");
+  const { currentUser, getExpenses } = useFirebase();
   const [IncomeInter, getIncome] = useState<string>("");
   const [BalanceInter, getBalance] = useState<string>("");
+
+  if (!currentUser) {
+    useRouter().push("/signin");
+    return false;
+  }
 
   return (
     <section className="flex sm:flex-row flex-col justify-evenly items-start py-6 px-4">
@@ -20,10 +27,11 @@ export default function Charts({}: Props) {
       <Card type="outlined">
         <h2 className={TitleStyle.title}>Expenses</h2>
         <div>
-          <Selection getInterval={getExpense} className="rounded-md">
+          <Selection getInterval={getExpenses} className="rounded-md">
+            <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
-            <option value="Monthly">Monthly</option>
-            <option value="Annually">Annually</option>
+            <option value="monthly">Monthly</option>
+            <option value="annually">Annually</option>
           </Selection>
           <BarChart data={[1, 2, 3]} />
         </div>
@@ -32,13 +40,14 @@ export default function Charts({}: Props) {
         <h2 className={TitleStyle.title}>Income</h2>
         <div>
           <Selection getInterval={getIncome} className="rounded-md">
+            <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
-            <option value="Monthly">Monthly</option>
-            <option value="Annually">Annually</option>
+            <option value="monthly">Monthly</option>
+            <option value="annually">Annually</option>
           </Selection>
           <BarChart
             data={[
-              { year: 1980, efficiency: 24.3, sales: 8949000 },
+              { year: 1980, efficiency: 24.3, sales: 49000 },
               { year: 1985, efficiency: 27.6, sales: 10979000 },
               { year: 1990, efficiency: 28, sales: 9303000 },
               { year: 1991, efficiency: 28.4, sales: 8185000 },
@@ -54,9 +63,10 @@ export default function Charts({}: Props) {
         <h2 className={TitleStyle.title}>Balance sheet</h2>
         <div>
           <Selection getInterval={getBalance} className="rounded-md">
+            <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
-            <option value="Monthly">Monthly</option>
-            <option value="Annually">Annually</option>
+            <option value="monthly">Monthly</option>
+            <option value="annually">Annually</option>
           </Selection>
           <BarChart data={[1, 2, 3]} />
         </div>

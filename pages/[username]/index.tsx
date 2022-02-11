@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Button from "../components/Button";
-import { useFirebase } from "../hooks/FirebaseContext";
-import accStyles from "../styles/Account.module.css";
+import Button from "../../components/Button";
+import { useFirebase } from "../../hooks/FirebaseContext";
+import accStyles from "../../styles/Account.module.css";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import Head from "next/head";
+import favicon from "../../public/favicon.ico";
 
 export default function account() {
   const router = useRouter();
@@ -26,6 +27,11 @@ export default function account() {
       })
       .finally(() => setLoading(false));
   }
+
+  if (!currentUser) {
+    return false;
+  }
+
   return (
     <section>
       <Head>
@@ -33,7 +39,7 @@ export default function account() {
       </Head>
       <div className={accStyles.accountHead}>
         <img
-          src={currentUser?.photoUrl}
+          src={currentUser?.photoURL ?? favicon}
           alt="ProfilePic"
           className={accStyles.avatar}
         />
