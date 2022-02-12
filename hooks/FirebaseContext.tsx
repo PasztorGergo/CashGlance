@@ -11,12 +11,14 @@ import {
   onSnapshot,
   collection,
   setDoc,
+  addDoc,
   doc,
   query,
   where,
   limit,
 } from "@firebase/firestore";
 import { auth, db } from "../firebase";
+import Finance from "../models/finance";
 
 const FirebaseContext = React.createContext<any>(null);
 
@@ -34,6 +36,7 @@ export function FirebaseProvider({ children }: any) {
   const [incomeArray, setIncomeArray] = useState<Array<any>>([]);
 
   function signUp(email: string, password: string) {
+    //#region Authentication
     return createUserWithEmailAndPassword(auth, email, password).then(
       (userCredentials) => {
         const respUser = userCredentials.user;
@@ -60,7 +63,9 @@ export function FirebaseProvider({ children }: any) {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
   }
+  //#endregion
 
+  //#region dataFetching
   function getExpenses(period: Period = "monthly") {
     switch (period) {
       case "weekly":
@@ -99,7 +104,6 @@ export function FirebaseProvider({ children }: any) {
         setTimeLimit(365);
         break;
     }
-
     if (!currentUser) return;
 
     onSnapshot(
@@ -113,7 +117,18 @@ export function FirebaseProvider({ children }: any) {
       }
     );
   }
+  //#endregion
 
+  //#region writeData
+  function addExpense(amount: number, date: string) {
+    const newExpense: Finance = {
+      uid: currentUser.uid,
+      amount: amount,
+      date: date.split("T")[0],
+    };
+    return addDoc(collection(db, "Expenses"), newExpense);
+  }
+  //#endregion
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -122,8 +137,8 @@ export function FirebaseProvider({ children }: any) {
           setUser(user.data());
         });
       }
+      setLoading(false);
     });
-    setLoading(false);
   }, []);
   const value = {
     signInwithGoogle,
@@ -135,6 +150,7 @@ export function FirebaseProvider({ children }: any) {
     expenseArray,
     incomeArray,
     getIncome,
+    addExpense,
   };
   return (
     <FirebaseContext.Provider value={value}>

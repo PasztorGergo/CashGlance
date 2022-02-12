@@ -38,13 +38,13 @@ export default function Navigation({}: Props) {
           </Link>
         </li>
         <li>
-          <Link href="/about">
+          <Link href="/portfolio">
             <div className={`${styles.icon} group`}>
               <FontAwesomeIcon icon={["fas", "info-circle"]} />
               <p
                 className={`${styles.iconText} group-hover:w-full group-hover:min-h-max group-hover:opacity-100`}
               >
-                About
+                Portfolio
               </p>
             </div>
           </Link>

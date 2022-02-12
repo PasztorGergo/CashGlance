@@ -42,7 +42,7 @@ export default function App() {
       </Head>
       <h2 className={formStyles.title}>Sign In</h2>
       <form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
-        <label className="flex flex-col">
+        <label className={formStyles.label}>
           <span>E-mail address</span>
           <input
             disabled={loading}
@@ -52,7 +52,7 @@ export default function App() {
             className={formStyles.input}
           />
         </label>
-        <label className="flex flex-col">
+        <label className={formStyles.label}>
           <span>Password</span>
           <input
             disabled={loading}
@@ -62,7 +62,7 @@ export default function App() {
             className={formStyles.input}
           />
         </label>
-        <label className="flex flex-col">
+        <label className={formStyles.label}>
           <span>Confirm Password</span>
           <input
             disabled={loading}

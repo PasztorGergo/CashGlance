@@ -6,15 +6,16 @@ type elevation = "lg" | "md" | "sm";
 type Props = {
   type: type;
   elevation?: elevation;
-  children: Array<string | ReactChildren | ReactElement>;
+  children: Array<ReactElement> | ReactElement;
+  className: string;
 };
 
-export default function Card({ type, elevation, children }: Props) {
+export default function Card({ type, elevation, children, className }: Props) {
   return (
     <div
       className={`${CardStyles[type]} ${
         elevation ?? CardStyles[elevation as any]
-      }`}
+      } ${className}`}
     >
       {children}
     </div>
