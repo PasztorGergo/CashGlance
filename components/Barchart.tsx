@@ -12,13 +12,16 @@ export default function BarChart({ data }: any) {
 
       const x = d3
         .scaleBand()
-        .domain(data.map((d: any) => d.year))
+        .domain(data.map((d: any) => d.date))
         .rangeRound([margin.left, width - margin.right])
         .padding(0.1);
 
       const y1 = d3
         .scaleLinear()
-        .domain([0, d3.max(data, (d: any) => d.sales)] as Iterable<NumberValue>)
+        .domain([
+          0,
+          d3.max(data, (d: any) => d.amount),
+        ] as Iterable<NumberValue>)
         .rangeRound([height - margin.bottom, margin.top]);
 
       const xAxis = (g: any) =>
@@ -42,7 +45,7 @@ export default function BarChart({ data }: any) {
       const y1Axis = (g: any) =>
         g
           .attr("transform", `translate(${margin.left},0)`)
-          .style("color", "steelblue")
+          .style("color", "#065f46")
           .call(d3.axisLeft(y1).ticks(null, "s"))
           .call((g: any) => g.select(".domain").remove())
           .call((g: any) =>
@@ -60,15 +63,15 @@ export default function BarChart({ data }: any) {
 
       svg
         .select(".plot-area")
-        .attr("fill", "steelblue")
+        .attr("fill", "#065f46")
         .selectAll(".bar")
         .data(data)
         .join("rect")
         .attr("class", "bar")
-        .attr("x", (d: any) => x(d.year))
+        .attr("x", (d: any) => x(d.date))
         .attr("width", x.bandwidth())
-        .attr("y", (d: any) => y1(d.sales))
-        .attr("height", (d: any) => y1(0) - y1(d.sales));
+        .attr("y", (d: any) => y1(d.amount))
+        .attr("height", (d: any) => y1(0) - y1(d.amount));
     },
     [data.length]
   );

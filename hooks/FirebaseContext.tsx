@@ -17,7 +17,6 @@ import {
   limit,
 } from "@firebase/firestore";
 import { auth, db } from "../firebase";
-import { utcFormat } from "d3";
 
 const FirebaseContext = React.createContext<any>(null);
 
@@ -26,11 +25,13 @@ export function useFirebase() {
 }
 
 export function FirebaseProvider({ children }: any) {
-  type Period = "daily" | "weekly" | "monthly" | "annually";
+  type Period = "weekly" | "monthly" | "annually";
   const userCollection = collection(db, "Users");
   const [loading, setLoading] = useState<Boolean>(true);
   const [currentUser, setUser] = useState<any>();
   const [timeLimit, setTimeLimit] = useState<number>(1);
+  const [expenseArray, setExpenseArray] = useState<Array<any>>([]);
+  const [incomeArray, setIncomeArray] = useState<Array<any>>([]);
 
   function signUp(email: string, password: string) {
     return createUserWithEmailAndPassword(auth, email, password).then(
@@ -61,22 +62,19 @@ export function FirebaseProvider({ children }: any) {
   }
 
   function getExpenses(period: Period = "monthly") {
-    if (!currentUser) return;
-
     switch (period) {
-      case "daily":
+      case "weekly":
         setTimeLimit(7);
         break;
-      case "weekly":
+      case "monthly":
         setTimeLimit(30);
         break;
-      case "monthly":
+      case "annually":
         setTimeLimit(365);
         break;
-      case "annually":
-        setTimeLimit(365 * 5);
-        break;
     }
+
+    if (!currentUser) return;
 
     onSnapshot(
       query(
@@ -85,13 +83,33 @@ export function FirebaseProvider({ children }: any) {
         limit(timeLimit)
       ),
       (snapshot) => {
-        snapshot.docs.map((doc, index) => {
-          console.log(
-            new Date(
-              Date.UTC(0, 0, 0, 0, 0, doc.data().date - 365 * 24 * 3600 * 1900)
-            )
-          );
-        });
+        setExpenseArray(snapshot.docs.map((doc, index) => doc.data()));
+      }
+    );
+  }
+  function getIncome(period: Period = "monthly") {
+    switch (period) {
+      case "weekly":
+        setTimeLimit(7);
+        break;
+      case "monthly":
+        setTimeLimit(30);
+        break;
+      case "annually":
+        setTimeLimit(365);
+        break;
+    }
+
+    if (!currentUser) return;
+
+    onSnapshot(
+      query(
+        collection(db, "Income"),
+        where("uid", "==", currentUser.uid),
+        limit(timeLimit)
+      ),
+      (snapshot) => {
+        setIncomeArray(snapshot.docs.map((doc, index) => doc.data()));
       }
     );
   }
@@ -114,6 +132,9 @@ export function FirebaseProvider({ children }: any) {
     signUp,
     currentUser,
     getExpenses,
+    expenseArray,
+    incomeArray,
+    getIncome,
   };
   return (
     <FirebaseContext.Provider value={value}>

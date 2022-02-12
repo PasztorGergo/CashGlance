@@ -10,8 +10,8 @@ import { useRouter } from "next/router";
 type Props = {};
 
 export default function Charts({}: Props) {
-  const { currentUser, getExpenses } = useFirebase();
-  const [IncomeInter, getIncome] = useState<string>("");
+  const { currentUser, getExpenses, expenseArray, getIncome, incomeArray } =
+    useFirebase();
   const [BalanceInter, getBalance] = useState<string>("");
 
   if (!currentUser) {
@@ -33,7 +33,7 @@ export default function Charts({}: Props) {
             <option value="monthly">Monthly</option>
             <option value="annually">Annually</option>
           </Selection>
-          <BarChart data={[1, 2, 3]} />
+          <BarChart data={expenseArray} />
         </div>
       </Card>
       <Card type="outlined">
@@ -45,18 +45,7 @@ export default function Charts({}: Props) {
             <option value="monthly">Monthly</option>
             <option value="annually">Annually</option>
           </Selection>
-          <BarChart
-            data={[
-              { year: 1980, efficiency: 24.3, sales: 49000 },
-              { year: 1985, efficiency: 27.6, sales: 10979000 },
-              { year: 1990, efficiency: 28, sales: 9303000 },
-              { year: 1991, efficiency: 28.4, sales: 8185000 },
-              { year: 1992, efficiency: 27.9, sales: 8213000 },
-              { year: 1993, efficiency: 28.4, sales: 8518000 },
-              { year: 1994, efficiency: 28.3, sales: 8991000 },
-              { year: 1995, efficiency: 28.6, sales: 8620000 },
-            ]}
-          />
+          <BarChart data={incomeArray} />
         </div>
       </Card>
       <Card type="outlined">
