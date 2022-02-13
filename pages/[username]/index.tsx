@@ -5,7 +5,8 @@ import accStyles from "../../styles/Account.module.css";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import Head from "next/head";
-import favicon from "../../public/favicon.ico";
+import Image from "next/image";
+import user from "../../public/user.svg";
 
 export default function account() {
   const router = useRouter();
@@ -38,11 +39,15 @@ export default function account() {
         <title>CashGlance | Account</title>
       </Head>
       <div className={accStyles.accountHead}>
-        <img
-          src={currentUser?.photoURL ?? favicon}
-          alt="ProfilePic"
-          className={accStyles.avatar}
-        />
+        {currentUser.photoURL ? (
+          <img
+            src={currentUser.photoURL}
+            alt="ProfilePic"
+            className={accStyles.avatar}
+          />
+        ) : (
+          <Image src={user} />
+        )}
         <h1 className={accStyles.displayName}>{currentUser?.displayName}</h1>
       </div>
       <div className={accStyles.accountBody}>

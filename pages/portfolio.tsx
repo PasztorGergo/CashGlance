@@ -9,12 +9,12 @@ export default function portfolio({}: Props) {
   const { addExpense, addIncome } = useFirebase();
 
   return (
-    <section className="portfolio">
+    <main className="portfolio flex items-center justify-evenly">
       <Head>
         <title>CashGlance | Portfolio</title>
       </Head>
       <FinancialForm type="expense" financialFunction={addExpense} />
       <FinancialForm type="income" financialFunction={addIncome} />
-    </section>
+    </main>
   );
 }
