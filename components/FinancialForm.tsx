@@ -3,7 +3,8 @@ import Button from "./Button";
 import formStyles from "../styles/SignForm.module.css";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { faRegistered } from "@fortawesome/free-solid-svg-icons";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 type Props = {
   financialFunction: any;
@@ -11,8 +12,14 @@ type Props = {
 };
 
 export default function FinancialForm({ financialFunction, type }: Props) {
+  const schema = yup
+    .object({
+      amount: yup.number().positive().required(),
+      date: yup.string().required(),
+    })
+    .required();
   const [loading, setLoading] = useState<boolean>(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
   function onSubmit(data: any) {
     setLoading(true);
 
@@ -38,22 +45,23 @@ export default function FinancialForm({ financialFunction, type }: Props) {
         <label htmlFor="Amount" className={formStyles.label}>
           <span>Amount</span>
           <input
-            {...register("amount", { required: true, min: 0 })}
+            {...register("amount", {
+              disabled: loading,
+            })}
             type="number"
             className={formStyles.input}
-            disabled={loading}
           />
         </label>
         <label htmlFor="Date" className={formStyles.label}>
           <span>Date</span>
           <input
-            {...register("date", { required: true })}
+            {...register("date", { disabled: loading })}
             type="datetime-local"
             className={formStyles.input}
             disabled={loading}
           />
         </label>
-        <Button theme="success" type="submit">
+        <Button theme="success" type="submit" disabled={loading}>
           Add
         </Button>
       </form>

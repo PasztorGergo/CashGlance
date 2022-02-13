@@ -7,7 +7,7 @@ type Props = {
   type: type;
   elevation?: elevation;
   children: Array<ReactElement> | ReactElement;
-  className: string;
+  className?: string;
 };
 
 export default function Card({ type, elevation, children, className }: Props) {

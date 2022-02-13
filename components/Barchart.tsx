@@ -13,8 +13,8 @@ export default function BarChart({ data }: any) {
       const x = d3
         .scaleBand()
         .domain(data.map((d: any) => d.date))
-        .rangeRound([margin.left, width - margin.right])
-        .padding(0.1);
+        .rangeRound([margin.left, width / 2.5])
+        .padding(0.01);
 
       const y1 = d3
         .scaleLinear()
@@ -69,7 +69,7 @@ export default function BarChart({ data }: any) {
         .join("rect")
         .attr("class", "bar")
         .attr("x", (d: any) => x(d.date))
-        .attr("width", x.bandwidth())
+        .attr("width", width / 10)
         .attr("y", (d: any) => y1(d.amount))
         .attr("height", (d: any) => y1(0) - y1(d.amount));
     },

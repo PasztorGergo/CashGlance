@@ -121,12 +121,18 @@ export function FirebaseProvider({ children }: any) {
 
   //#region writeData
   function addExpense(amount: number, date: string) {
-    const newExpense: Finance = {
+    return addDoc(collection(db, "Expenses"), {
       uid: currentUser.uid,
       amount: amount,
       date: date.split("T")[0],
-    };
-    return addDoc(collection(db, "Expenses"), newExpense);
+    } as Finance);
+  }
+  function addIncome(amount: number, date: string) {
+    return addDoc(collection(db, "Income"), {
+      uid: currentUser.uid,
+      amount: amount,
+      date: date.split("T")[0],
+    } as Finance);
   }
   //#endregion
   useEffect(() => {
@@ -151,6 +157,7 @@ export function FirebaseProvider({ children }: any) {
     incomeArray,
     getIncome,
     addExpense,
+    addIncome,
   };
   return (
     <FirebaseContext.Provider value={value}>

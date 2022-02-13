@@ -6,7 +6,7 @@ import { useFirebase } from "../hooks/FirebaseContext";
 type Props = {};
 
 export default function portfolio({}: Props) {
-  const { addExpense } = useFirebase();
+  const { addExpense, addIncome } = useFirebase();
 
   return (
     <section className="portfolio">
@@ -14,6 +14,7 @@ export default function portfolio({}: Props) {
         <title>CashGlance | Portfolio</title>
       </Head>
       <FinancialForm type="expense" financialFunction={addExpense} />
+      <FinancialForm type="income" financialFunction={addIncome} />
     </section>
   );
 }

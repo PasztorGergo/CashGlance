@@ -48,7 +48,7 @@ export default function Charts({}: Props) {
           <BarChart data={incomeArray} />
         </div>
       </Card>
-      <Card type="outlined">
+      {/* <Card type="outlined">
         <h2 className={TitleStyle.title}>Balance sheet</h2>
         <div>
           <Selection getInterval={getBalance} className="rounded-md">
@@ -59,7 +59,7 @@ export default function Charts({}: Props) {
           </Selection>
           <BarChart data={[1, 2, 3]} />
         </div>
-      </Card>
+      </Card> */}
     </section>
   );
 }
