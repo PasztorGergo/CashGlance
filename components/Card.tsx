@@ -13,9 +13,9 @@ type Props = {
 export default function Card({ type, elevation, children, className }: Props) {
   return (
     <div
-      className={`${CardStyles[type]} ${
-        elevation ?? CardStyles[elevation as any]
-      } ${className}`}
+      className={`${elevation ?? elevation} ${CardStyles[type]}  ${
+        className ?? ""
+      }`}
     >
       {children}
     </div>

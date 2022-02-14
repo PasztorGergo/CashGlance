@@ -1,15 +1,18 @@
 .featureList {
-  @apply flex items-center justify-evenly;
+  @apply flex justify-evenly;
 }
 .featureContainer {
-  @apply flex flex-col justify-around items-center;
+  @apply flex flex-col justify-around items-center rounded-md w-72 px-3 py-5 bg-emerald-900;
 }
-.fetureText {
-  @apply flex flex-col gap-3 items-center;
+.featureText {
+  @apply flex flex-col gap-3 items-center text-white;
 }
-.fetureTitle {
+.featureTitle {
   @apply font-semibold uppercase text-xl;
 }
-.fetureDescription {
-  @apply leading-6 tracking-wide;
+.featureDescription {
+  @apply leading-6 tracking-wide text-center px-2;
+}
+.featureIcon {
+  @apply text-7xl text-white;
 }
