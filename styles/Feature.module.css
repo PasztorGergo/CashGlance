@@ -1,0 +1,15 @@
+.featureList {
+  @apply flex items-center justify-evenly;
+}
+.featureContainer {
+  @apply flex flex-col justify-around items-center;
+}
+.fetureText {
+  @apply flex flex-col gap-3 items-center;
+}
+.fetureTitle {
+  @apply font-semibold uppercase text-xl;
+}
+.fetureDescription {
+  @apply leading-6 tracking-wide;
+}

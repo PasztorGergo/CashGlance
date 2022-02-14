@@ -8,6 +8,7 @@ type Props = {
   onClick?: any;
   disabled?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
+  className: string;
 };
 
 export default function Button({
@@ -16,13 +17,14 @@ export default function Button({
   onClick,
   disabled,
   type,
+  className,
 }: Props) {
   return (
     <button
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`${buttonStyles[theme]} px-4 py-2 rounded-md text-white uppercase font-bold text-sm`}
+      className={`${buttonStyles[theme]} px-4 py-2 rounded-md text-white uppercase font-bold text-sm ${className}`}
     >
       {children}
     </button>
