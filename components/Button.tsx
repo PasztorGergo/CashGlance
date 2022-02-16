@@ -8,7 +8,7 @@ type Props = {
   onClick?: any;
   disabled?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
-  className: string;
+  className?: string;
 };
 
 export default function Button({

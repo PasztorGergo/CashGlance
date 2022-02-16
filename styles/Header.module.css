@@ -1,8 +1,10 @@
 .header {
-  @apply relative min-h-screen flex w-full py-8 px-4 justify-evenly items-center flex-wrap;
+  @apply relative min-h-screen flex w-full py-8 px-4 justify-evenly items-center flex-wrap bg-cover  bg-blend-multiply;
+  background-image: linear-gradient(to bottom, #10b981, #06b6d4),
+    url("../public/cash.jpg");
 }
 .header::after {
   content: "";
   clip-path: polygon(50% 100%, 100% 0, 100% 100%, 0 100%, 0 0);
-  @apply bg-slate-600 w-full h-16 absolute -bottom-36 left-0 z-[2];
+  @apply bg-white w-full h-16 absolute -bottom-0 left-0 z-[2];
 }

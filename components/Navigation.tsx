@@ -6,18 +6,11 @@ import { useFirebase } from "../hooks/FirebaseContext";
 type Props = {};
 
 export default function Navigation({}: Props) {
-  const [scroll, setScroll] = useState(false);
-  const [prevScrollPos, setPrevious] = useState<number>(0);
-  const [currentScrollPos, setCurrent] = useState<number>(0);
-
-  window.addEventListener("scroll", () => {});
   const { currentUser } = useFirebase();
-  return (
-    <nav
-      className={`${styles.navigation} prose-h2:text-white ${
-        scroll ? "-translate-y-full" : "translate-y-0"
-      }`}
-    >
+  const [open, setOpen] = useState(false);
+
+  return open ? (
+    <nav className={`${styles.navigation} prose-h2:text-white`}>
       <Link href="/">
         <h2 className={styles.brand}>CashGlance</h2>
       </Link>
@@ -77,7 +70,21 @@ export default function Navigation({}: Props) {
             </div>
           </Link>
         </li>
+        <li>
+          <FontAwesomeIcon
+            icon={["fas", "times"]}
+            onClick={() => setOpen(false)}
+            className="cursor-pointer"
+          />
+        </li>
       </ul>
+    </nav>
+  ) : (
+    <nav
+      onClick={() => setOpen(true)}
+      className="rounded-full h-20 w-20 text-3xl cursor-pointer flex justify-center items-center fixed bg-gradient-to-br top-4 left-4 z-10 from-emerald-900 to-emerald-800 text-white"
+    >
+      <FontAwesomeIcon icon={["fas", "bars"]} />
     </nav>
   );
 }
