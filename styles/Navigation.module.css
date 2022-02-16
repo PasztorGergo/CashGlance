@@ -1,5 +1,5 @@
 .navigation {
-  @apply w-full flex items-center h-20 bg-gradient-to-br from-emerald-900 to-emerald-800 px-4 justify-between;
+  @apply w-full flex items-center h-20 bg-gradient-to-br transition-transform fixed z-10 from-emerald-900 to-emerald-800 px-4 justify-between;
 }
 
 .brand {

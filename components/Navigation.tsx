@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Navigation.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -6,9 +6,18 @@ import { useFirebase } from "../hooks/FirebaseContext";
 type Props = {};
 
 export default function Navigation({}: Props) {
+  const [scroll, setScroll] = useState(false);
+  const [prevScrollPos, setPrevious] = useState<number>(0);
+  const [currentScrollPos, setCurrent] = useState<number>(0);
+
+  window.addEventListener("scroll", () => {});
   const { currentUser } = useFirebase();
   return (
-    <nav className={`${styles.navigation} prose-h2:text-white`}>
+    <nav
+      className={`${styles.navigation} prose-h2:text-white ${
+        scroll ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
       <Link href="/">
         <h2 className={styles.brand}>CashGlance</h2>
       </Link>

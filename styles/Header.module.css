@@ -1,0 +1,8 @@
+.header {
+  @apply relative min-h-screen flex w-full py-8 px-4 justify-evenly items-center flex-wrap;
+}
+.header::after {
+  content: "";
+  clip-path: polygon(50% 100%, 100% 0, 100% 100%, 0 100%, 0 0);
+  @apply bg-slate-600 w-full h-16 absolute -bottom-36 left-0 z-[2];
+}
