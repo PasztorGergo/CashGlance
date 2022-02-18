@@ -1,0 +1,18 @@
+.details {
+  @apply flex flex-col w-full relative;
+}
+.sub {
+  @apply flex py-6 px-12 justify-between items-center h-screen;
+}
+.first {
+  @apply w-full bg-cover bg-no-repeat;
+  background-image: url("../public/gradientOne.svg");
+}
+.second {
+  @apply w-full bg-cover bg-no-repeat;
+  background-image: url("../public/gradientTwo.svg");
+}
+.third {
+  @apply w-full bg-cover bg-no-repeat;
+  background-image: url("../public/gradientThree.svg");
+}
