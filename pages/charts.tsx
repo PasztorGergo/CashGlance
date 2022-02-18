@@ -24,7 +24,7 @@ export default function Charts({}: Props) {
       <Head>
         <title>CashGlance | Charts</title>
       </Head>
-      <Card type="outlined">
+      <Card type="outlined" rounded={true}>
         <h2 className={TitleStyle.title}>Expenses</h2>
         <div>
           <Selection getInterval={getExpenses} className="rounded-md">
@@ -36,7 +36,7 @@ export default function Charts({}: Props) {
           <BarChart data={expenseArray} />
         </div>
       </Card>
-      <Card type="outlined">
+      <Card type="outlined" rounded={true}>
         <h2 className={TitleStyle.title}>Income</h2>
         <div>
           <Selection getInterval={getIncome} className="rounded-md">

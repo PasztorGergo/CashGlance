@@ -1,5 +1,5 @@
 .outlined {
-  @apply ring-1 ring-black ring-opacity-50 rounded px-6 py-3 flex max-w-md min-h-max flex flex-col;
+  @apply ring-1 ring-black ring-opacity-50 px-6 py-3 min-h-max flex flex-col;
   flex: 0.2 0.15 10%;
 }
 .elevated {

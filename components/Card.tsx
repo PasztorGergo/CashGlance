@@ -8,14 +8,21 @@ type Props = {
   elevation?: elevation;
   children: Array<ReactElement> | ReactElement;
   className?: string;
+  rounded: boolean;
 };
 
-export default function Card({ type, elevation, children, className }: Props) {
+export default function Card({
+  type,
+  elevation,
+  children,
+  className,
+  rounded,
+}: Props) {
   return (
     <div
       className={`${elevation ?? elevation} ${CardStyles[type]}  ${
         className ?? ""
-      }`}
+      } ${rounded && "rounded"}`}
     >
       {children}
     </div>

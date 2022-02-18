@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Button from "../../components/Button";
-import { useFirebase } from "../../hooks/FirebaseContext";
-import accStyles from "../../styles/Account.module.css";
+import Button from "../components/Button";
+import { useFirebase } from "../hooks/FirebaseContext";
+import accStyles from "../styles/Account.module.css";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import Head from "next/head";
 import Image from "next/image";
-import user from "../../public/user.svg";
+import user from "../public/user.svg";
 
 export default function account() {
   const router = useRouter();
@@ -30,6 +30,7 @@ export default function account() {
   }
 
   if (!currentUser) {
+    router.replace("/signin");
     return false;
   }
 

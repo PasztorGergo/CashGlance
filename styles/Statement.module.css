@@ -1,0 +1,12 @@
+.statementContainer {
+  @apply flex flex-col justify-between items-stretch gap-2 w-full py-8 px-24 h-screen;
+}
+.statementContainer h2 {
+  @apply self-center;
+}
+.incomeStatement {
+  @apply flex flex-col justify-center items-center;
+}
+.balanceSheet {
+  @apply flex h-1/2 justify-center;
+}
