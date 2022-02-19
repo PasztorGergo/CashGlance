@@ -1,6 +1,14 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import BarChart from "../components/Barchart";
+import {
+  BarChart,
+  Bar,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Legend,
+  Tooltip,
+} from "recharts";
 import Card from "../components/Card";
 import Selection from "../components/Selection";
 import TitleStyle from "../styles/SignForm.module.css";
@@ -18,48 +26,22 @@ export default function Charts({}: Props) {
     useRouter().push("/signin");
     return false;
   }
+  useEffect(() => {
+    getExpenses();
+  }, []);
 
   return (
-    <section className="flex sm:flex-row flex-col justify-evenly items-start py-6 px-4">
-      <Head>
-        <title>CashGlance | Charts</title>
-      </Head>
+    <main>
       <Card type="outlined" rounded={true}>
-        <h2 className={TitleStyle.title}>Expenses</h2>
-        <div>
-          <Selection getInterval={getExpenses} className="rounded-md">
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="annually">Annually</option>
-          </Selection>
-          <BarChart data={expenseArray} />
-        </div>
+        <BarChart width={730} height={250} data={expenseArray}>
+          <CartesianGrid stroke="#ccc"></CartesianGrid>
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="amount" fill="#226e56"></Bar>
+        </BarChart>
       </Card>
-      <Card type="outlined" rounded={true}>
-        <h2 className={TitleStyle.title}>Income</h2>
-        <div>
-          <Selection getInterval={getIncome} className="rounded-md">
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="annually">Annually</option>
-          </Selection>
-          <BarChart data={incomeArray} />
-        </div>
-      </Card>
-      {/* <Card type="outlined">
-        <h2 className={TitleStyle.title}>Balance sheet</h2>
-        <div>
-          <Selection getInterval={getBalance} className="rounded-md">
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="annually">Annually</option>
-          </Selection>
-          <BarChart data={[1, 2, 3]} />
-        </div>
-      </Card> */}
-    </section>
+    </main>
   );
 }

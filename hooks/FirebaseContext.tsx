@@ -82,11 +82,7 @@ export function FirebaseProvider({ children }: any) {
     if (!currentUser) return;
 
     onSnapshot(
-      query(
-        collection(db, "Expenses"),
-        where("uid", "==", currentUser.uid),
-        limit(timeLimit)
-      ),
+      query(collection(db, "Expenses"), where("uid", "==", currentUser.uid)),
       (snapshot) => {
         setExpenseArray(snapshot.docs.map((doc, index) => doc.data()));
       }
