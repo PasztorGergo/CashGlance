@@ -71,7 +71,7 @@ export function FirebaseProvider({ children }: any) {
 
     onSnapshot(
       query(
-        collection(db, "Expenses"),
+        collection(db, "Expense"),
         where("uid", "==", currentUser.uid),
         orderBy("date"),
         limit(timeLimit)
@@ -99,7 +99,7 @@ export function FirebaseProvider({ children }: any) {
 
   //#region writeData
   function addExpense(amount: number, date: string) {
-    return addDoc(collection(db, "Expenses"), {
+    return addDoc(collection(db, "Expense"), {
       uid: currentUser.uid,
       amount: amount,
       date: date.split("T")[0],
