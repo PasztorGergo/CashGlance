@@ -16,6 +16,7 @@ import {
   query,
   where,
   limit,
+  orderBy,
 } from "@firebase/firestore";
 import { auth, db } from "../firebase";
 import Finance from "../models/finance";
@@ -31,7 +32,6 @@ export function FirebaseProvider({ children }: any) {
   const userCollection = collection(db, "Users");
   const [loading, setLoading] = useState<Boolean>(true);
   const [currentUser, setUser] = useState<any>();
-  const [timeLimit, setTimeLimit] = useState<number>(1);
   const [expenseArray, setExpenseArray] = useState<Array<any>>([]);
   const [incomeArray, setIncomeArray] = useState<Array<any>>([]);
 
@@ -66,40 +66,22 @@ export function FirebaseProvider({ children }: any) {
   //#endregion
 
   //#region dataFetching
-  function getExpenses(period: Period = "monthly") {
-    switch (period) {
-      case "weekly":
-        setTimeLimit(7);
-        break;
-      case "monthly":
-        setTimeLimit(30);
-        break;
-      case "annually":
-        setTimeLimit(365);
-        break;
-    }
-
+  function getExpenses(timeLimit: number) {
     if (!currentUser) return;
 
     onSnapshot(
-      query(collection(db, "Expenses"), where("uid", "==", currentUser.uid)),
+      query(
+        collection(db, "Expenses"),
+        where("uid", "==", currentUser.uid),
+        orderBy("date"),
+        limit(timeLimit)
+      ),
       (snapshot) => {
         setExpenseArray(snapshot.docs.map((doc, index) => doc.data()));
       }
     );
   }
-  function getIncome(period: Period = "monthly") {
-    switch (period) {
-      case "weekly":
-        setTimeLimit(7);
-        break;
-      case "monthly":
-        setTimeLimit(30);
-        break;
-      case "annually":
-        setTimeLimit(365);
-        break;
-    }
+  function getIncome(timeLimit: number) {
     if (!currentUser) return;
 
     onSnapshot(

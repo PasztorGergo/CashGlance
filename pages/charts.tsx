@@ -26,20 +26,22 @@ export default function Charts({}: Props) {
     useRouter().push("/signin");
     return false;
   }
-  useEffect(() => {
-    getExpenses();
-  }, []);
 
   return (
     <main>
-      <Card type="outlined" rounded={true}>
+      <Card type="outlined" rounded={true} className="w-3/4">
+        <Selection getInterval={getExpenses}>
+          <option value="7">Weekly</option>
+          <option value="30">Monthly</option>
+          <option value="365">Annually</option>
+        </Selection>
         <BarChart width={730} height={250} data={expenseArray}>
           <CartesianGrid stroke="#ccc"></CartesianGrid>
           <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="amount" fill="#226e56"></Bar>
+          <Bar dataKey="amount" fill="#226e56" />
         </BarChart>
       </Card>
     </main>

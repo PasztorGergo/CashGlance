@@ -1,25 +1,25 @@
-import React, { ReactChildren, ReactElement, useEffect } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 type Props = {
   children: Array<ReactElement>;
   getInterval: any;
-  className: string;
+  className?: string;
 };
 
 export default function Selection({ children, getInterval, className }: Props) {
-  const { register, watch } = useForm();
-  const intervalWatch = watch("interval");
+  const { register } = useForm();
+  const [limit, setLimit] = useState<number>(7);
 
   useEffect(() => {
-    getInterval(intervalWatch);
-  }, [intervalWatch]);
+    getInterval(limit);
+  }, [limit]);
 
   return (
     <select
       {...register("interval")}
-      defaultValue="monthly"
       className={className}
+      onChange={(e) => setLimit(e.target.value as unknown as number)}
     >
       {children}
     </select>
